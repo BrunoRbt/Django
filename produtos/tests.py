@@ -1,18 +1,24 @@
 from django.test import TestCase
+from .models import Produto
 
-class SimpleTest(TestCase):
-    # Teste de adição simples
-    def test_basic_addition(self):
-        self.assertEqual(1 + 1, 2)
+class ProdutoModelTest(TestCase):
 
-    # Teste de subtração simples
-    def test_basic_subtraction(self):
-        self.assertEqual(5 - 2, 3)
+    def setUp(self):
+        # Criando um produto para usar nos testes
+        self.produto = Produto.objects.create(
+            nome="Produto Teste",
+            preco=99.99,
+            estoque=10
+        )
 
-    # Teste de multiplicação simples
-    def test_basic_multiplication(self):
-        self.assertEqual(3 * 3, 9)
+    def test_produto_creation(self):
+        # Verifica se o produto foi criado corretamente
+        produto = self.produto
+        self.assertEqual(produto.nome, "Produto Teste")
+        self.assertEqual(produto.preco, 99.99)
+        self.assertEqual(produto.estoque, 10)
 
-    # Teste de divisão simples
-    def test_basic_division(self):
-        self.assertEqual(8 / 2, 4)
+    def test_produto_str(self):
+        # Verifica se o método __str__ do produto está retornando o nome corretamente
+        produto = self.produto
+        self.assertEqual(str(produto), "Produto Teste")
